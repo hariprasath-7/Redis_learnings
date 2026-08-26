@@ -259,3 +259,76 @@ Request → Redis ❌ → Database → Redis → Return
 Remember
 Check Redis → If missing, get from DB → Store in Redis → Return.
 
+## Pub/Sub
+
+Used for real-time communication.
+
+```text
+Publisher → Redis Channel → Subscriber
+Commands:
+SUBSCRIBE notifications
+PUBLISH notifications "Hello"
+Use cases:
+- Notifications
+- Events
+- Service communication
+Rate Limiting
+Limits how many requests a user can make.
+Example:
+5 requests / 60 seconds
+Main commands:
+INCR requests
+EXPIRE requests 60
+TTL requests
+Flow:
+Request → Redis Counter → Allow / Block
+Transactions
+Groups multiple Redis commands together.
+MULTI
+HINCRBY product:1 stock -1
+HINCRBY product:1 sales 1
+EXEC
+Commands:
+MULTI   → Start
+EXEC    → Execute
+DISCARD → Cancel
+Python + Redis
+Install:
+pip install redis
+Connect:
+import redis
+
+r = redis.Redis(
+    host="localhost",
+    port=6379,
+    decode_responses=True
+)
+Examples:
+r.set("name", "HARI")
+r.get("name")
+
+r.incr("requests")
+r.expire("requests", 60)
+
+r.delete("name")
+Redis + FastAPI
+FastAPI
+   ↓
+Python Redis Library
+   ↓
+Redis
+Common uses:
+- API caching
+- Sessions
+- Rate limiting
+- Temporary data
+- AI/RAG caching
+Remember
+SET / GET       → Store & read
+EXPIRE / TTL    → Expiration
+DEL             → Delete
+INCR            → Counter
+PUBLISH         → Send message
+SUBSCRIBE       → Receive message
+MULTI / EXEC    → Transaction
+Learn the concepts and use them in projects. Don't memorize every Redis command.
