@@ -330,6 +330,8 @@ DEL             → Delete
 INCR            → Counter
 PUBLISH         → Send message
 SUBSCRIBE       → Receive message
+
+
 Done
 MULTI / EXEC    → Transaction
 Learn the concepts and use them in projects. Don't memorize every Redis command.
